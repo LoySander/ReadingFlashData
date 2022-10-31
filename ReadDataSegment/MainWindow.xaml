@@ -48,7 +48,7 @@
         </StackPanel>
         <Button x:Name="bStart" Content="Start reading" HorizontalAlignment="Left" Margin="10,105,0,0" Grid.Row="2" VerticalAlignment="Top" Width="129" Click="Button_Click" Height="34"/>
         <ProgressBar Grid.Row="2" x:Name="pbProgress" Visibility="{Binding ProgressBarVisibility}" Style="{StaticResource MaterialDesignCircularProgressBar}" Value="35" Margin="10,40,0,0" IsIndeterminate="True"  />
-        <ListBox Margin="10,60,10,10" x:Name="lbMessage" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" ItemsSource="{Binding Message}" />
+        <TextBlock Margin="10,60,10,10" x:Name="lbMessage" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" Text ="{Binding Message}" />
         <TextBlock Grid.Column="1" Margin="105,21,105,0" Grid.Row="1" TextWrapping="Wrap" Text="Сообщения" TextAlignment="Center"  Style="{StaticResource MaterialDesignHeadline6TextBlock}" VerticalAlignment="Top" RenderTransformOrigin="-0.048,0.519"/>
         <Button x:Name="bStop" IsEnabled="False" Content="Stop" HorizontalAlignment="Left" Margin="10,144,0,0" Grid.Row="2" VerticalAlignment="Top" Width="129" Click="bStop_Click"/>
     </Grid>

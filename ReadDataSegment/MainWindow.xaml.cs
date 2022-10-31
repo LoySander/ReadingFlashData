@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+
 namespace ReadDataSegment
 {
     /// <summary>
@@ -22,9 +23,10 @@ namespace ReadDataSegment
 
     public partial class MainWindow : Window
     {
-        private List<string> _segments = new List<string>() {"seg 8000","seg 9000", "seg A000", "seg B000", "seg C000", "seg D000"};
+        private List<string> _segments = new List<string>() {"segment 8000","segment 9000", "segment A000", "segment B000", "segment C000", "segment D000"};
         private List<string> _comPorts = new List<string>();
         private MySerialPort _port = null;
+        private string _selectedSegment = null;
         private Data _data = null;
         
         public MainWindow()
@@ -35,6 +37,7 @@ namespace ReadDataSegment
             _comPorts.AddRange(_port.PortsName);
             cbComPorts.ItemsSource = _comPorts;
             cbSegments.ItemsSource = _segments;
+           
         }
 
         private void cbComPorts_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -44,7 +47,7 @@ namespace ReadDataSegment
 
         private void cbSegments_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _data.SelectedSegment = (string)cbSegments.SelectedValue;
+            _selectedSegment = (string)cbSegments.SelectedValue;
         }
 
         private void tbFileName_TextChanged(object sender, TextChangedEventArgs e)
@@ -52,18 +55,18 @@ namespace ReadDataSegment
             _data.FileName = tbFileName.Text;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private async void Button_Click(object sender, RoutedEventArgs e)
         {
             bStart.IsEnabled = false;
             bStop.IsEnabled = true;
-            //_data = new Data(_port);
-            //_data.WriteToPort();
-            //pbProgress.Visibility = Visibility.Visible;
+            _data = new Data(_port);
+            pbProgress.Visibility = Visibility.Visible;
+            await _data.ReadSegment(_selectedSegment);
         }
 
-        private void bStop_Click(object sender, RoutedEventArgs e)
+        private void  bStop_Click(object sender, RoutedEventArgs e)
         {
-            //_data.ClosePort();
+            _data.ClosePort();
             bStart.IsEnabled = true;
             bStop.IsEnabled = false;
         }

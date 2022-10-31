@@ -17,7 +17,6 @@ namespace ReadDataSegment
     {
         private string _data = string.Empty;
         private string _message;
-        private string _selectedSegment = string.Empty;
         private bool _writing;
         private SerialPort _serialPort = null;
         private string _fileName = "file";
@@ -30,11 +29,6 @@ namespace ReadDataSegment
         }
 
         #region свойства
-        public string SelectedSegment
-        {
-            get => _selectedSegment;
-            set => _selectedSegment = value;
-        }
 
         public string Message
         {
@@ -68,39 +62,44 @@ namespace ReadDataSegment
                 return (Writing) ? Visibility.Visible : Visibility.Collapsed;
             }
         }
-
-
         #endregion
 
         public void DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            //Thread.Sleep(300);
-            _data += _serialPort.ReadLine();
-            Message = _serialPort.ReadLine();
+            string str = _serialPort.ReadLine();
+            _data += str + " ";
+            Message = str;
               
         }
 
-        public void WriteToPort()
+        public void WriteToPort(string segment)
         {
             _serialPort.Open();
             Writing = true;
             if (_serialPort.IsOpen)
             {
-                _serialPort.Write("flash\n");
-                _serialPort.Write(SelectedSegment + "\n");
+                _serialPort.WriteLine("use flash\n");
+                Thread.Sleep(1000);
+                _serialPort.WriteLine(segment + "\n");
+                Thread.Sleep(1000);
                 while (_serialPort.IsOpen)
                 {
-                    if (Message.Contains("FFF0"))
+                    _serialPort.WriteLine("d\n"); 
+                    Thread.Sleep(500);
+                    if (_message.Contains("FFF0:"))
                     {
                         break;
                     }
-                    _serialPort.Write("d\n");
-                    Thread.Sleep(300);
-                }
-                
+                }            
             }
             WriteToFile();
             _serialPort.Close();
+        }
+
+        public async Task ReadSegment(string segment) {
+            Message = "Начало работы";
+            await Task.Run(() => WriteToPort(segment));  
+            Message = "Конец работы";
         }
 
         private void WriteToFile()
@@ -112,7 +111,7 @@ namespace ReadDataSegment
             Writing = false;
         }
 
-        public void ClosePort()
+        public async void ClosePort()
         {
             _serialPort.Close();
         }

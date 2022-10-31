@@ -4,11 +4,11 @@
 winexe
 C#
 .cs
-C:\Users\ILYA\Source\Repos\LoySander\ReadingFlashData\ReadDataSegment\obj\Debug\
+C:\Users\ILYA\Source\Repos\LoySander\ReadingFlashData\ReadDataSegment\obj\Release\
 ReadDataSegment
 none
 false
-DEBUG;TRACE
+TRACE
 C:\Users\ILYA\Source\Repos\LoySander\ReadingFlashData\ReadDataSegment\App.xaml
 1219584333
 
@@ -16,5 +16,5 @@ C:\Users\ILYA\Source\Repos\LoySander\ReadingFlashData\ReadDataSegment\App.xaml
 15-337528998
 MainWindow.xaml;
 
-False
+True
 
