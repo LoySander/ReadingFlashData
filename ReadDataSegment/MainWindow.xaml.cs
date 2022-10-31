@@ -28,16 +28,17 @@ namespace ReadDataSegment
         private MySerialPort _port = null;
         private string _selectedSegment = null;
         private Data _data = null;
-        
-        public MainWindow()
-        {
+
+        public MainWindow() {
             InitializeComponent();
             pbProgress.Visibility = Visibility.Collapsed;
             _port = new MySerialPort();
             _comPorts.AddRange(_port.PortsName);
             cbComPorts.ItemsSource = _comPorts;
             cbSegments.ItemsSource = _segments;
-           
+            _data = new Data();
+            DataContext = _data;
+            
         }
 
         private void cbComPorts_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -59,14 +60,21 @@ namespace ReadDataSegment
         {
             bStart.IsEnabled = false;
             bStop.IsEnabled = true;
-            _data = new Data(_port);
+            _data.ChangeSettings(_port);
             pbProgress.Visibility = Visibility.Visible;
+            tbFileName.IsEnabled = false;
+            cbComPorts.IsEnabled = false;
+            cbSegments.IsEnabled = false;
             await _data.ReadSegment(_selectedSegment);
         }
 
         private void  bStop_Click(object sender, RoutedEventArgs e)
         {
             _data.ClosePort();
+            pbProgress.Visibility = Visibility.Hidden;
+            tbFileName.IsEnabled = true;
+            cbComPorts.IsEnabled = true;
+            cbSegments.IsEnabled = true;
             bStart.IsEnabled = true;
             bStop.IsEnabled = false;
         }
