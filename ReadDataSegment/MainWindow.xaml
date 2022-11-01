@@ -46,11 +46,11 @@
             materialDesign:HintAssist.Hint="Name file without extension"
             IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignFilledTextBoxEnabledComboBox}" TextChanged="tbFileName_TextChanged"/>
         </StackPanel>
-        <Button x:Name="bStart" Content="Начать чтение" HorizontalAlignment="Left" Margin="10,105,0,0" Grid.Row="2" VerticalAlignment="Top" Width="129" Click="Button_Click" Height="34"/>
+        <Button x:Name="bStart" Content="Начать чтение" HorizontalAlignment="Left" Margin="10,105,0,0" Grid.Row="2" VerticalAlignment="Top" Width="129" Click="Button_Click" Height="34" Background="#2a475e"/>
         <ProgressBar Grid.Row="2" x:Name="pbProgress" Visibility="{Binding ProgressBarVisibility}" Style="{StaticResource MaterialDesignCircularProgressBar}" Value="35" Margin="10,40,0,0" IsIndeterminate="True"  />
         <TextBox Margin="10,60,10,10" x:Name="lbMessage" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" Text="{Binding Message}" VerticalScrollBarVisibility="Auto" />
         <TextBlock Grid.Column="1" Margin="105,21,105,0" Grid.Row="1" TextWrapping="Wrap" TextAlignment="Center" Text="Сообщения" Style="{StaticResource MaterialDesignHeadline6TextBlock}" VerticalAlignment="Top" RenderTransformOrigin="-0.048,0.519"/>
-        <Button x:Name="bStop" IsEnabled="False" Content="Остановить" HorizontalAlignment="Left" Margin="10,144,0,0" Grid.Row="2" VerticalAlignment="Top" Width="129" Click="bStop_Click"/>
+        <Button x:Name="bStop" IsEnabled="False" Content="Остановить" HorizontalAlignment="Left" Margin="10,144,0,0" Grid.Row="2" VerticalAlignment="Top" Width="129" Click="bStop_Click" Background="#2a475e"/>
     </Grid>
 
 </Window>
