@@ -159,6 +159,7 @@ namespace ReadDataSegment
                 writer.WriteLine(_data);
             }
             Writing = false;
+            _data = String.Empty;
             ProgressBarVisibility = Visibility.Hidden;
         }
 
